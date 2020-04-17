@@ -6,11 +6,13 @@ node {
         commit_id = readFile('.git/commit-id').trim()
     }
     stage('test') {
-        nodejs(nodeJSInstallationName: 'nodejs') {
-            sh 'npm install --only=dev' // only install dev dependency
-            sh 'npm test'
-        }
-    }
+     def nodeContainer = docker.image('node:12.16.2')
+     nodeContainer.pull()
+     nodeContainer.inside {
+       sh 'npm install --only=dev'
+       sh 'npm test'
+     }
+   }
     stage('docker build/push') {
         //connect to docker hub with dockerhub credential present in jenkins
         docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
