@@ -4,9 +4,13 @@
     "description": "Node.js on Docker",
     "main": "server.js",
     "scripts": {
-      "start": "node server.js"
+      "start": "node server.js",
+      "test": "mocha"
     },
     "dependencies": {
-      "express": "^4.16.1"
+      "express": "^4.17.1"
+    },
+    "devDependencies": {
+      "mocha": "^7.1.1"
     }
   }
